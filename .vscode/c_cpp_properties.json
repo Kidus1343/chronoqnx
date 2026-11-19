@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "name": "QNX-8.0-x86_64",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "C:/qnx800/target/qnx/usr/include"
+      ],
+      "defines": ["__QNX__", "__QNXNTO__", "__X86_64__"],
+      "compilerPath": "C:/qnx800/host/win64/x86_64/usr/bin/qcc.exe",
+      "cStandard": "c17"
+    }
+  ],
+  "version": 4
+}

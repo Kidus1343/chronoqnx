@@ -1,0 +1,14 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cross-compiled binaries
+target-probe/chrono_agent
+target-probe/probe_check
+workload-sim/ipc_bench
+
+# Temporary files & logs
+*.log
+.DS_Store
+Thumbs.db

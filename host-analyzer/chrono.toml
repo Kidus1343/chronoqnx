@@ -1,0 +1,31 @@
+# ChronoQNX CI latency gate configuration (read by ci_gate.py)
+#
+# Thresholds were calibrated on the QNX 8.0 x86_64 QEMU image (2 vCPU) with the
+# default workload: 200 Hz client, 100 us server work, 8 ms / 23 ms CPU hog.
+#   mode=normal : p99 ~ 0.3 ms, WCET ~ 1-2 ms,  0 inversions
+#   mode=invert : p99 ~ 8.7 ms, WCET ~ 12 ms, ~175 inversions per 1000 requests
+
+[thresholds]
+max_p99_us              = 1000    # 99th percentile round-trip time
+max_wcet_us             = 5000    # worst-case observed round-trip time
+max_priority_inversions = 0       # ipc records flagged as priority inversion
+
+# Optional extra gates - uncomment to enforce.
+# max_p50_us    = 400
+# max_p95_us    = 800
+# max_p999_us   = 3000
+# max_jitter_us = 150             # mean |RTT[i] - RTT[i-1]|
+
+[capture]
+host           = "127.0.0.1"     # QEMU forwards 127.0.0.1:9000 -> guest :9000
+port           = 9000
+window_s       = 20              # max capture time after the first sample
+max_wait_s     = 25              # give up if no sample arrives within this time
+min_samples    = 200             # fewer samples than this = FAIL (no evidence)
+warmup_samples = 10              # discard the first N samples (cold caches)
+
+[target]                          # only used with --launch
+ssh_host   = "qnx-qemu"
+dir        = "/data/home/root"
+rate_hz    = 200
+duration_s = 10
